@@ -12,7 +12,7 @@
     <artifactId>express</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>express</name>
-    <description>大学校园快递代取管理系统</description>
+    <description>校园快递管理系统</description>
 
     <properties>
         <java.version>1.8</java.version>

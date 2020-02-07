@@ -82,12 +82,12 @@ public class SettingApiController {
      * 设置/修改手机号
      */
     @PostMapping("/tel")
-    public ResponseResult setTel(String tel, String code, HttpSession session, @AuthenticationPrincipal SysUser sysUser) {
-        if(StringUtils.isAnyBlank(tel, code)) {
-            return ResponseResult.failure(ResponseErrorCodeEnum.PARAMETER_ERROR);
-        }
+    public ResponseResult setTel(String tel, HttpSession session, @AuthenticationPrincipal SysUser sysUser) {
+//        if(StringUtils.isAnyBlank(tel, code)) {
+//            return ResponseResult.failure(ResponseErrorCodeEnum.PARAMETER_ERROR);
+//        }
 
-        return sysUserService.setTel(sysUser, tel, code, session);
+        return sysUserService.setTel(sysUser, tel, "", session);
     }
 
     /**

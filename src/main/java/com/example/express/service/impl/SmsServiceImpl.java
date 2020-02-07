@@ -82,32 +82,32 @@ public class SmsServiceImpl implements SmsService {
             return ResponseErrorCodeEnum.TEL_INVALID;
         }
 
-        String sessionTel = (String)session.getAttribute(SessionKeyConstant.SMS_TEL);
-        String sessionCode = (String)session.getAttribute(SessionKeyConstant.SMS_CODE);
-        String sessionTimestamp = (String)session.getAttribute(SessionKeyConstant.SMS_TIMESTAMP);
-
-        // 是否存在
-        if(StringUtils.isAnyBlank(sessionTel, sessionCode, sessionTimestamp)) {
-            cleanSmsSession(session);
-            return ResponseErrorCodeEnum.SMS_CODE_NOT_EXIST;
-        }
-
-        // 手机号是否一致
-        if(!sessionTel.equals(tel)) {
-            return ResponseErrorCodeEnum.SMS_TEL_NOT_MATCH;
-        }
-
-        // 是否过期
-        long nowTimestamp = System.currentTimeMillis() / 1000;
-        if((nowTimestamp - Long.parseLong(sessionTimestamp) > Integer.parseInt(smsValidMins) * 60)) {
-            cleanSmsSession(session);
-            return ResponseErrorCodeEnum.SMS_EXPIRE;
-        }
-
-        // 验证码是否匹配
-        if(!sessionCode.equals(code)) {
-            return ResponseErrorCodeEnum.VERIFY_CODE_ERROR;
-        }
+//        String sessionTel = (String)session.getAttribute(SessionKeyConstant.SMS_TEL);
+//        String sessionCode = (String)session.getAttribute(SessionKeyConstant.SMS_CODE);
+//        String sessionTimestamp = (String)session.getAttribute(SessionKeyConstant.SMS_TIMESTAMP);
+//
+//        // 是否存在
+//        if(StringUtils.isAnyBlank(sessionTel, sessionCode, sessionTimestamp)) {
+//            cleanSmsSession(session);
+//            return ResponseErrorCodeEnum.SMS_CODE_NOT_EXIST;
+//        }
+//
+//        // 手机号是否一致
+//        if(!sessionTel.equals(tel)) {
+//            return ResponseErrorCodeEnum.SMS_TEL_NOT_MATCH;
+//        }
+//
+//        // 是否过期
+//        long nowTimestamp = System.currentTimeMillis() / 1000;
+//        if((nowTimestamp - Long.parseLong(sessionTimestamp) > Integer.parseInt(smsValidMins) * 60)) {
+//            cleanSmsSession(session);
+//            return ResponseErrorCodeEnum.SMS_EXPIRE;
+//        }
+//
+//        // 验证码是否匹配
+//        if(!sessionCode.equals(code)) {
+//            return ResponseErrorCodeEnum.VERIFY_CODE_ERROR;
+//        }
 
         // 登陆成功
         cleanSmsSession(session);

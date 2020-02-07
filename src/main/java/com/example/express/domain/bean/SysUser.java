@@ -20,7 +20,8 @@ import java.util.Collection;
 @Data
 @Builder
 public class SysUser implements UserDetails, CredentialsContainer {
-    @TableId(type = IdType.UUID)
+
+    @TableId(type = IdType.AUTO)
     private String id;
 
     private String username;
@@ -131,5 +132,151 @@ public class SysUser implements UserDetails, CredentialsContainer {
     @Override
     public boolean isAccountNonExpired() {
         return true;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    @Override
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getFaceToken() {
+        return faceToken;
+    }
+
+    public void setFaceToken(String faceToken) {
+        this.faceToken = faceToken;
+    }
+
+    public SysRoleEnum getRole() {
+        return role;
+    }
+
+    public void setRole(SysRoleEnum role) {
+        this.role = role;
+    }
+
+    public SexEnum getSex() {
+        return sex;
+    }
+
+    public void setSex(SexEnum sex) {
+        this.sex = sex;
+    }
+
+    public String getRealName() {
+        return realName;
+    }
+
+    public void setRealName(String realName) {
+        this.realName = realName;
+    }
+
+    public String getIdCard() {
+        return idCard;
+    }
+
+    public void setIdCard(String idCard) {
+        this.idCard = idCard;
+    }
+
+    public String getStudentIdCard() {
+        return studentIdCard;
+    }
+
+    public void setStudentIdCard(String studentIdCard) {
+        this.studentIdCard = studentIdCard;
+    }
+
+    public String getTel() {
+        return tel;
+    }
+
+    public void setTel(String tel) {
+        this.tel = tel;
+    }
+
+    public Integer getSchoolId() {
+        return schoolId;
+    }
+
+    public void setSchoolId(Integer schoolId) {
+        this.schoolId = schoolId;
+    }
+
+    public ThirdLoginTypeEnum getThirdLogin() {
+        return thirdLogin;
+    }
+
+    public void setThirdLogin(ThirdLoginTypeEnum thirdLogin) {
+        this.thirdLogin = thirdLogin;
+    }
+
+    public String getThirdLoginId() {
+        return thirdLoginId;
+    }
+
+    public void setThirdLoginId(String thirdLoginId) {
+        this.thirdLoginId = thirdLoginId;
+    }
+
+    public Integer getHasEnable() {
+        return hasEnable;
+    }
+
+    public void setHasEnable(Integer hasEnable) {
+        this.hasEnable = hasEnable;
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
+
+    public LocalDateTime getLockDate() {
+        return lockDate;
+    }
+
+    public void setLockDate(LocalDateTime lockDate) {
+        this.lockDate = lockDate;
+    }
+
+    public LocalDateTime getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(LocalDateTime createDate) {
+        this.createDate = createDate;
+    }
+
+    public LocalDateTime getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(LocalDateTime updateDate) {
+        this.updateDate = updateDate;
     }
 }

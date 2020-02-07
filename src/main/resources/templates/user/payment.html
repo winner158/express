@@ -19,12 +19,12 @@
             <div th:replace="user/module/sidebar::html"></div>
             <!-- 支付主体 -->
             <div class="col-md-10">
-                <div class="alert alert-danger alert-dismissible fade in mt10" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-                    <strong>请使用支付宝沙箱账号支付，其他账号无法支付！</strong>
-                    APP下载地址：https://sandbox.alipaydev.com/user/downloadApp.htm
-                    账号：uceskd4358@sandbox.com &nbsp;&nbsp; 登录、支付密码：111111<br>
-                </div>
+                <!--<div class="alert alert-danger alert-dismissible fade in mt10" role="alert">-->
+                    <!--<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>-->
+                    <!--<strong>请使用支付宝沙箱账号支付，其他账号无法支付！</strong>-->
+                    <!--APP下载地址：https://sandbox.alipaydev.com/user/downloadApp.htm-->
+                    <!--账号：uceskd4358@sandbox.com &nbsp;&nbsp; 登录、支付密码：111111<br>-->
+                <!--</div>-->
                 <div class="row">
                     <div class="col-sm-6">
                         <h4>订单信息</h4>
@@ -66,6 +66,18 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label for="packageWeight" class="col-sm-2 control-label">包裹重量</label>
+                                <div class="col-sm-10">
+                                    <p class="form-control-static" id="packageWeight" th:text="${order.packageWeight}"></p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <!--<label for="packagePrice" class="col-sm-2 control-label">寄件价格</label>-->
+                                <div class="col-sm-10">
+                                    <input type="hidden" class="form-control" name="packagePrice" th:value="${order.packagePrice}"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label for="expressRemark" class="col-sm-2 control-label">备注</label>
                                 <div class="col-sm-10">
                                     <p class="form-control-static" id="expressRemark" th:text="${order.remark}"></p>
@@ -74,27 +86,27 @@
                         </form>
                     </div>
                     <div  class="col-sm-6">
-                        <h4>价格计算</h4>
+                        <h4>寄件费用</h4>
                         <blockquote class="pt10">
-                            <p>< 500g/件：2元；< 1kg/件：3元；> 1kg/kg：4元</p>
+                            <p>按照输入价格计算</p>
                         </blockquote>
-                        <h4>预估价格： <span class="red-span" lang="totalPrice">0.00</span> 元</h4>
-                        <form class="form-horizontal" id="packageForm">
-                        </form>
-                        <div class="col-sm-offset-2 col-sm-10">
-                            <button type="button" class="btn btn-default" onclick="addPackage()">添加包裹</button>
-                            <button type="button" class="btn btn-default" onclick="deletePackage()">删除包裹</button>
-                        </div>
+                        <h4>寄件价格： <span class="red-span" lang="totalPrice" th:text="${order.packagePrice}"></span> 元</h4>
+                        <!--<form class="form-horizontal" id="packageForm">-->
+                        <!--</form>-->
+                        <!--<div class="col-sm-offset-2 col-sm-10">-->
+                            <!--<button type="button" class="btn btn-default" onclick="addPackage()">添加包裹</button>-->
+                            <!--<button type="button" class="btn btn-default" onclick="deletePackage()">删除包裹</button>-->
+                        <!--</div>-->
                     </div>
                 </div>
                 <div class="row">
-                    <h4>支付方式（在线方式至少付款0.01元）</h4>
-                    <form class="form-inline col-sm-4" id="alipayForm" action="/order/alipay" method="post">
-                        <input type="hidden" id="alipayMoney" name="money">
-                        <button class="btn btn-info" type="button" onclick="alipay()">支付宝支付</button>
+                    <!--<h4>支付方式（在线方式至少付款0.01元）</h4>-->
+                    <form class="form-inline col-sm-4" id="alipayForm" action="/user/order/finish" method="post">
+                        <input type="hidden" id="alipayMoney" name="money" th:value="${order.packagePrice}">
+                        <button class="btn btn-info" type="button" onclick="goOrder()">确认下单</button>
                     </form>
                     <form class="form-inline col-sm-4" id="wechatForm" action="#" method="post">
-                        <button class="btn btn-default" type="button" disabled>微信支付</button>
+                        <button class="btn btn-default" type="button" disabled>返回上一页</button>
                     </form>
                 </div>
             </div>
@@ -112,11 +124,11 @@
         $(function () {
             $("#order-sidebar").addClass('active');
 
-            let alipayAlert = 'APP下载：https://sandbox.alipaydev.com/user/downloadApp.htm' + '&nbsp;&nbsp;' +
-                '账号：uceskd4358@sandbox.com &nbsp;&nbsp; 登录、支付密码：111111';
-            layer.confirm(alipayAlert, {title:'务必使用沙箱APP和沙箱账号支付和登录', btn: ['明白了']}, function(){
-                layer.msg('不要用真实支付宝支付哦！！', {icon: 0});
-            });
+            // let alipayAlert = 'APP下载：https://sandbox.alipaydev.com/user/downloadApp.htm' + '&nbsp;&nbsp;' +
+            //     '账号：uceskd4358@sandbox.com &nbsp;&nbsp; 登录、支付密码：111111';
+            // layer.confirm(alipayAlert, {title:'务必使用沙箱APP和沙箱账号支付和登录', btn: ['明白了']}, function(){
+            //     layer.msg('不要用真实支付宝支付哦！！', {icon: 0});
+            // });
         });
 
         function addPackage() {
@@ -165,10 +177,10 @@
             });
         }
 
-        function alipay() {
-            if(total === 0)
-                total = 0.01;
-            $("#alipayMoney").val(total);
+        function goOrder() {
+            // if(total === 0)
+            //     total = 0.01;
+            // $("#alipayMoney").val(total);
             $("#alipayForm").submit();
         }
     </script>

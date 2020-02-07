@@ -33,6 +33,12 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label for="packageWeight" class="col-sm-1 control-label">包裹重量</label>
+                        <div class="col-sm-11">
+                            <input type="tel" class="form-control" id="packageWeight" name="packageWeight" placeholder="请输入包裹重量/单位:kg">
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label for="inputOdd" class="col-sm-1 control-label">快递单号</label>
                         <div class="col-sm-11">
                             <input type="tel" class="form-control" id="inputOdd" name="odd" placeholder="请输入快递单号">
@@ -61,6 +67,12 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label for="packagePrice" class="col-sm-1 control-label">寄件价格</label>
+                        <div class="col-sm-11">
+                            <input type="tel" class="form-control"  id="packagePrice" name="packagePrice" placeholder="请输入寄件价格">
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label for="inputRemark" class="col-sm-1 control-label">备注（可选）</label>
                         <div class="col-sm-11">
                             <textarea class="form-control dis_change_textarea" id="inputRemark" name="remark" rows="5"
@@ -78,7 +90,7 @@
                         </div>
                     </div>
                     <div class="form-group" style="text-align: center">
-                        <button class="btn btn-primary" type="submit">前往支付</button>
+                        <button class="btn btn-primary" type="submit">生成订单信息</button>
                         <button class="btn btn-warning" type="reset">重新填写</button>
                     </div>
                 </form>

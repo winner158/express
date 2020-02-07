@@ -67,7 +67,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     @Override
     public SysUser getById(Serializable id) {
-        SysUser user = (SysUser) redisTemplate.opsForHash().get(RedisKeyConstant.SYS_USER, id);
+        SysUser user = sysUserMapper.selectById(id);
+        //SysUser user = (SysUser) redisTemplate.opsForHash().get(RedisKeyConstant.SYS_USER, id);
         if(user != null) {
             return user;
         }
@@ -117,6 +118,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Override
     public UserInfoVO getUserInfo(String userId) {
         SysUser user = getById(userId);
+        System.out.println("userId:"+userId);
+        System.out.println("user:"+user);
         SysRoleEnum userRole = user.getRole();
 
         UserInfoVO vo = UserInfoVO.builder()
@@ -130,7 +133,9 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
                 .idCard(user.getIdCard())
                 .realName(user.getRealName()).build();
 
+        System.out.println("schoolId:"+user.getSchoolId());
         DataSchool school = dataSchoolService.getById(user.getSchoolId());
+        System.out.println(school.getName());
         if(school != null) {
             vo.setSchool(school.getName());
         }

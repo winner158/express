@@ -32,4 +32,19 @@ public enum FeedbackTypeEnum implements IEnum<Integer> {
     public static FeedbackTypeEnum getByType(int type) {
         return Arrays.stream(values()).filter(e -> e.getType() == type).findFirst().orElse(null);
     }
-}
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }}

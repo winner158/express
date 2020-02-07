@@ -144,7 +144,8 @@ public class OrderApiController {
 
         StringBuilder sql = new StringBuilder();
         sql.append(" AND info.status = ").append(OrderStatusEnum.WAIT_DIST.getStatus());
-        sql.append(" AND payment.status = ").append(PaymentStatusEnum.TRADE_SUCCESS.getStatus());
+        sql.append(" AND info.has_delete =").append("0");
+//        sql.append(" AND payment.status = ").append(PaymentStatusEnum.TRADE_SUCCESS.getStatus());
 
         if(StringUtils.isNotBlank(startDate)) {
             sql.append(" AND info.create_date > '").append(startDate).append("'");

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration  scan="true" scanPeriod="60 seconds" debug="false">
     <contextName>logback</contextName>
-    <property name="info-log.path" value="/home/logs"/>
-    <property name="error-log.path" value="/home/logs" />
+    <property name="info-log.path" value="/Users/pfsun/demo/express/log"/>
+    <property name="error-log.path" value="/Users/pfsun/demo/express/log" />
 
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>

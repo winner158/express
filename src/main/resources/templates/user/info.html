@@ -55,16 +55,16 @@
                                 <button type="button" class="btn btn-default col-md-3" onclick="showModel(4)">修改性别</button>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="faceLogin" class="col-md-2 control-label">人脸登录</label>
-                            <div class="col-md-10">
-                                <p class="form-control-static col-md-7" id="faceLogin"
-                                   th:style="${info.canFace == '0' ? 'color:gray' : ''}"
-                                   th:text="${info.canFace == '1' ? '已绑定人脸' : '您未绑定人脸，绑定后可以使用人脸登录'}"></p>
-                                <button type="button" class="btn btn-default col-md-3" th:if="${info.canFace == '1'}" onclick="showModel(5)">更换人脸</button>
-                                <button type="button" class="btn btn-danger col-md-3" th:if="${info.canFace == '0'}" onclick="showModel(5)">绑定人脸</button>
-                            </div>
-                        </div>
+                        <!--<div class="form-group">-->
+                            <!--<label for="faceLogin" class="col-md-2 control-label">人脸登录</label>-->
+                            <!--<div class="col-md-10">-->
+                                <!--<p class="form-control-static col-md-7" id="faceLogin"-->
+                                   <!--th:style="${info.canFace == '0' ? 'color:gray' : ''}"-->
+                                   <!--th:text="${info.canFace == '1' ? '已绑定人脸' : '您未绑定人脸，绑定后可以使用人脸登录'}"></p>-->
+                                <!--<button type="button" class="btn btn-default col-md-3" th:if="${info.canFace == '1'}" onclick="showModel(5)">更换人脸</button>-->
+                                <!--<button type="button" class="btn btn-danger col-md-3" th:if="${info.canFace == '0'}" onclick="showModel(5)">绑定人脸</button>-->
+                            <!--</div>-->
+                        <!--</div>-->
                     </form>
                 </div><hr>
                 <div id="schoolInfo">
@@ -213,19 +213,19 @@
                                 <input type="text" class="form-control" id="inputTel" name="tel">
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="telCode" class="col-md-2 control-label">验证码</label>
-                            <div class="col-md-10">
-                                <div class="row" >
-                                    <div class="col-md-6 col-sm-12 col-lg-6 col-xs-12 " >
-                                        <input type="text" class="form-control" id="telCode" name="code" placeholder="请输入验证码">
-                                    </div>
-                                    <div class="col-md-6 col-sm-12 col-lg-6 col-xs-12 telCode">
-                                        <button type="button" class="btn btn-info btn-block" id="getTelCode" >获取验证码</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <!--<div class="form-group">-->
+                            <!--<label for="telCode" class="col-md-2 control-label">验证码</label>-->
+                            <!--<div class="col-md-10">-->
+                                <!--<div class="row" >-->
+                                    <!--<div class="col-md-6 col-sm-12 col-lg-6 col-xs-12 " >-->
+                                        <!--<input type="text" class="form-control" id="telCode" name="code" placeholder="请输入验证码">-->
+                                    <!--</div>-->
+                                    <!--<div class="col-md-6 col-sm-12 col-lg-6 col-xs-12 telCode">-->
+                                        <!--<button type="button" class="btn btn-info btn-block" id="getTelCode" >获取验证码</button>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -769,21 +769,23 @@
                 tel: {
                     required: true,
                     number: true
-                },
-                code: {
-                    required: true,
-                    number: true
                 }
+                // ,
+                // code: {
+                //     required: true,
+                //     number: true
+                // }
             },
             messages: {
                 tel: {
                     required: "手机号码不能为空",
                     number: "非法字符"
-                },
-                code: {
-                    required: "验证码不能为空",
-                    number: "非法字符"
                 }
+                // ,
+                // code: {
+                //     required: "验证码不能为空",
+                //     number: "非法字符"
+                // }
             },
             submitHandler: function (form) {
                 sendJson(HTTP.POST, "/api/v1/setting/tel", $("#setTelForm").serialize(), false, function (res) {

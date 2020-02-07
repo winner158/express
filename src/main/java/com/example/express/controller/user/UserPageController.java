@@ -1,19 +1,25 @@
 package com.example.express.controller.user;
 
 import com.example.express.common.constant.SessionKeyConstant;
+import com.example.express.domain.ResponseResult;
 import com.example.express.domain.bean.OrderInfo;
 import com.example.express.domain.bean.SysUser;
+import com.example.express.domain.enums.ResponseErrorCodeEnum;
 import com.example.express.domain.enums.SysRoleEnum;
 import com.example.express.domain.vo.user.UserInfoVO;
+import com.example.express.exception.CustomException;
 import com.example.express.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.Map;
 
 /**
@@ -51,8 +57,7 @@ public class UserPageController {
         map.put("evaluateDesc", userDesc);
 
         Map<String, Integer> data1 = orderInfoService.getUserDashboardData(sysUser.getId());
-        String orderDesc = "未支付订单数：：" + data1.get("waitPayment") +
-                "，等待接单数：：" + data1.get("wait") +
+        String orderDesc = "等待接单数：：" + data1.get("wait") +
                 "，正在派送数：" + data1.get("transport");
         map.put("orderDesc", orderDesc);
 
@@ -86,9 +91,36 @@ public class UserPageController {
         return "user/payment";
     }
 
+
     /**
-     * 订单列表页面
+     * 下单
+     * @param money 支付金额
+     * @author jitwxs
+     * @since 2018/5/14 8:53
      */
+    @PostMapping("/order/finish")
+    public void finish(Double money, HttpSession session, HttpServletResponse response, @AuthenticationPrincipal SysUser sysUser) throws IOException {
+
+        OrderInfo orderInfo = (OrderInfo)session.getAttribute(SessionKeyConstant.SESSION_LATEST_EXPRESS);
+
+        if(orderInfo == null || money == null) {
+            throw new CustomException(ResponseErrorCodeEnum.PARAMETER_ERROR);
+            //return ResponseErrorCodeEnum.PARAMETER_ERROR.getCode()+"";
+        }
+
+        // 生成订单 & 订单支付
+        ResponseResult result = orderInfoService.createOrder(orderInfo, money, sysUser.getId());
+        if(result.getCode() != ResponseErrorCodeEnum.SUCCESS.getCode()) {
+            throw new CustomException(result);
+//            return ResponseErrorCodeEnum.PARAMETER_ERROR.getCode()+"";
+        }else {
+            response.sendRedirect("/user/history");
+//            return "redirect://user/history";
+        }
+    }
+        /**
+         * 订单列表页面
+         */
     @RequestMapping("/history")
     public String showHistory(@AuthenticationPrincipal SysUser sysUser, ModelMap map) {
         map.put("frontName", sysUserService.getFrontName(sysUser));

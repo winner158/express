@@ -40,4 +40,27 @@ public enum SysRoleEnum implements IEnum<Integer> {
     public static SysRoleEnum getByName(String name) {
         return Arrays.stream(values()).filter(e -> e.getName().equals(name)).findFirst().orElse(null);
     }
-}
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCnName() {
+        return cnName;
+    }
+
+    public void setCnName(String cnName) {
+        this.cnName = cnName;
+    }}

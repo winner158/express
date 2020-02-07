@@ -32,4 +32,19 @@ public enum FeedbackStatusEnum implements IEnum<Integer> {
     public static FeedbackStatusEnum getByStatus(int status) {
         return Arrays.stream(values()).filter(e -> e.getStatus() == status).findFirst().orElse(null);
     }
-}
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }}
